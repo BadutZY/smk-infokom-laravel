@@ -1,0 +1,46 @@
+1. composer install
+
+2. copy .env.example dan ubah menjadi .env
+
+3. php artisan key:generate
+
+4. buat database "db_sekolah" lewat phpMyAdmin
+
+5. ubah .env menjadi:
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=db_sekolah
+    DB_USERNAME=root
+    DB_PASSWORD=
+
+6. php artisan migrate --seed
+
+7. php artisan storage:link
+
+8. npm install
+
+9. npm run build
+
+10. php artisan serve
+
+// TAMBAHAN UNTUK PDF
+11. composer require barryvdh/laravel-dompdf
+
+// TAMBAHAN UI v3 (perombakan tampilan)
+12. Database SUDAH berisi data (bukan instalasi baru)? Jalankan:  php artisan migrate
+    (menambah kolom warna identitas jurusan; data lama tidak berubah).
+    Alternatif: impor ulang database/sekolah_db.sql yang sudah diperbarui.
+
+13. Aset tampilan sudah ter-build di public/build. Jalankan  npm run build  lagi
+    hanya jika Anda mengubah file di resources/css atau resources/js.
+
+14. Warna border kartu jurusan diatur di:
+    Admin > Akademik > Kompetensi Keahlian (Jurusan) > "Warna Identitas Jurusan".
+    Kosongkan / klik "Otomatis" untuk memakai warna bawaan (config/site.php).
+    Empat warna jurusan HANYA dipakai pada elemen jurusan; bagian situs lainnya memakai navy + emas.
+
+15. Sudah punya proyek berjalan dan menimpa file dengan revisi warna ini? Jalankan:  php artisan view:clear
+    supaya tampilan lama tidak tertahan di cache.
+
+Rincian lengkap perubahan: lihat CATATAN-UI-V3.md

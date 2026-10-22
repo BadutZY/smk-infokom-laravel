@@ -1,0 +1,1578 @@
+@import 'tailwindcss';
+
+@source '../views';
+@source '../../app';
+
+/* ===================================================================
+   SMK INFOKOM — Design System v2 "Aurora Grid"
+   Tema: navy dalam + emas + cyan neon, kaca (glass), aurora & grid halus.
+   Semua token warna lama tetap dipertahankan (nama sama) supaya seluruh
+   halaman lama otomatis ikut ter-upgrade tanpa ada yang rusak.
+   Prinsip animasi: hanya transform/opacity (GPU friendly), easing konsisten,
+   dan menghormati "prefers-reduced-motion".
+   =================================================================== */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --font-display: 'Sora', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-teal: var(--teal);
+  --color-teal-foreground: var(--teal-foreground);
+  --color-cyan: var(--cyan);
+  --color-hero-foreground: var(--hero-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+}
+
+:root {
+  --radius: 1.2rem;
+  --background: oklch(0.968 0.006 250);
+  --foreground: oklch(0.19 0.05 260);
+  --card: oklch(0.996 0.003 250);
+  --card-foreground: oklch(0.19 0.05 260);
+  --popover: oklch(0.996 0.003 250);
+  --popover-foreground: oklch(0.19 0.05 260);
+  --primary: oklch(0.28 0.1 258);
+  --primary-foreground: oklch(0.99 0.004 250);
+  --primary-soft: oklch(0.42 0.125 258);
+  --secondary: oklch(0.93 0.014 252);
+  --secondary-foreground: oklch(0.28 0.1 258);
+  --muted: oklch(0.93 0.012 252);
+  --muted-foreground: oklch(0.46 0.032 258);
+  --accent: oklch(0.9 0.045 250);
+  --accent-foreground: oklch(0.28 0.1 258);
+  --teal: oklch(0.62 0.1 195);
+  --teal-foreground: oklch(0.98 0.006 195);
+  --cyan: oklch(0.82 0.12 210);
+  --gold: oklch(0.8 0.165 83);
+  --gold-foreground: oklch(0.24 0.06 258);
+  --hero-foreground: oklch(0.99 0.005 250);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0.003 248);
+  --border: oklch(0.885 0.014 252);
+  --input: oklch(0.885 0.014 252);
+  --ring: oklch(0.42 0.125 258);
+
+  /* Easing system — dipakai konsisten di seluruh animasi */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+
+  --gradient-navy: linear-gradient(135deg, oklch(0.17 0.075 265), oklch(0.29 0.112 257) 48%, oklch(0.21 0.095 250));
+  --gradient-navy-radial: radial-gradient(120% 120% at 15% -10%, oklch(0.4 0.13 255) 0%, transparent 55%), radial-gradient(100% 100% at 100% 110%, oklch(0.3 0.13 210) 0%, transparent 50%), var(--gradient-navy);
+  --gradient-gold: linear-gradient(135deg, oklch(0.87 0.14 94), oklch(0.74 0.18 68));
+  --gradient-aurora: linear-gradient(120deg, var(--gold), var(--cyan) 55%, var(--gold));
+  --gradient-mesh: radial-gradient(60% 50% at 12% 8%, oklch(0.8 0.16 85 / 0.16) 0%, transparent 60%), radial-gradient(55% 45% at 92% 18%, oklch(0.42 0.125 258 / 0.14) 0%, transparent 60%), radial-gradient(60% 55% at 50% 105%, oklch(0.62 0.1 195 / 0.12) 0%, transparent 60%);
+  --shadow-soft: 0 1px 2px oklch(0.19 0.05 260 / 0.05), 0 14px 34px -20px oklch(0.19 0.05 260 / 0.3);
+  --shadow-lift: 0 30px 64px -28px oklch(0.19 0.05 260 / 0.5);
+  --shadow-glow-gold: 0 10px 40px -12px oklch(0.8 0.165 83 / 0.55);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6.5rem; /* supaya anchor tidak tertutup navbar mengambang */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Lapisan ambient halaman: grid titik halus + cahaya aurora yang sangat
+     redup. Berada di belakang seluruh konten (z-index -1) sehingga section
+     yang transparan otomatis "menyala" lembut, section berlatar tetap bersih. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(50% 40% at 8% 0%, oklch(0.8 0.16 85 / 0.10), transparent 70%),
+      radial-gradient(45% 40% at 100% 12%, oklch(0.55 0.13 250 / 0.10), transparent 70%),
+      radial-gradient(50% 45% at 55% 108%, oklch(0.75 0.11 205 / 0.09), transparent 70%),
+      radial-gradient(circle at 1px 1px, oklch(0.28 0.1 258 / 0.055) 1px, transparent 0) 0 0 / 26px 26px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: oklch(from var(--gold) l c h / 0.45);
+    color: var(--foreground);
+  }
+
+  /* Umpan balik tekan (tap) yang halus — memakai properti `scale` +
+     keyframes (bukan transition), jadi tetap mulus walau elemen sudah punya
+     class transition Tailwind sendiri dan tidak bentrok dengan transform lain. */
+  a:active:not(.card-hover):not(.tilt-glow):not(.float-card),
+  button:active:not(:disabled):not(.chip-pulse):not(.float-card) {
+    animation: tapDip 0.32s var(--ease-out);
+  }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid oklch(from var(--ring) l c h / 0.55);
+    outline-offset: 3px;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(from var(--foreground) l c h / 0.2) transparent;
+  }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background-color: oklch(from var(--foreground) l c h / 0.2);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: oklch(from var(--foreground) l c h / 0.34);
+  }
+}
+
+@keyframes tapDip {
+  0% { scale: 1; }
+  38% { scale: 0.962; }
+  100% { scale: 1; }
+}
+
+/* ---------- Gradient & permukaan ---------- */
+@utility bg-navy-gradient { background-image: var(--gradient-navy); }
+
+/* Latar hero/CTA gelap + aurora yang bergeser sangat pelan (GPU: transform).
+   Semua elemen yang memakai utility ini sudah `relative overflow-hidden`. */
+@utility bg-navy-radial {
+  background-image: var(--gradient-navy-radial);
+  isolation: isolate;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -25%;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(38% 38% at 18% 32%, oklch(0.62 0.16 250 / 0.34), transparent 70%),
+      radial-gradient(34% 34% at 82% 18%, oklch(0.8 0.165 83 / 0.16), transparent 70%),
+      radial-gradient(42% 42% at 68% 84%, oklch(0.72 0.12 208 / 0.26), transparent 70%);
+    filter: blur(26px);
+    animation: auroraDrift 26s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+}
+@keyframes auroraDrift {
+  0% { transform: translate3d(-3%, -2%, 0) rotate(0deg) scale(1); }
+  50% { transform: translate3d(3%, 2%, 0) rotate(4deg) scale(1.06); }
+  100% { transform: translate3d(-2%, 3%, 0) rotate(-3deg) scale(1.02); }
+}
+
+@utility bg-gold-gradient { background-image: var(--gradient-gold); }
+@utility bg-mesh { background-image: var(--gradient-mesh); }
+
+@utility text-gradient-gold {
+  background-image: linear-gradient(110deg, oklch(0.87 0.14 94) 0%, oklch(0.74 0.18 68) 38%, oklch(0.93 0.1 100) 50%, oklch(0.74 0.18 68) 62%, oklch(0.87 0.14 94) 100%);
+  background-size: 250% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: goldSheen 6s ease-in-out infinite;
+}
+@keyframes goldSheen {
+  0%, 100% { background-position: 100% 0; }
+  50% { background-position: 0% 0; }
+}
+
+@utility text-gradient-aurora {
+  background-image: var(--gradient-aurora);
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: goldSheen 7s ease-in-out infinite;
+}
+
+@utility glow-gold { box-shadow: var(--shadow-glow-gold); }
+
+/* Kaca buram — navbar mengambang & panel overlay */
+@utility glass {
+  background-color: oklch(from var(--card) l c h / 0.7);
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
+}
+@utility glass-dark {
+  background-color: oklch(from var(--primary) l c h / 0.38);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+}
+
+/* Cincin gradien berputar untuk kartu unggulan */
+@property --ring-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@utility ring-gradient {
+  position: relative;
+  /* Cincin tipis (hanya area border 1.5px yang terlihat) — memakai mask
+     supaya tidak menutupi/menodai isi elemen dan tetap tampil pada elemen
+     overflow-hidden. */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    padding: 1.5px;
+    border-radius: inherit;
+    pointer-events: none;
+    background-image: conic-gradient(from var(--ring-angle), oklch(from var(--gold) l c h / 0.95), oklch(from var(--cyan) l c h / 0.7), oklch(from var(--gold) l c h / 0.15) 60%, oklch(from var(--gold) l c h / 0.95));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    animation: ringSpin 7s linear infinite;
+  }
+}
+@keyframes ringSpin { to { --ring-angle: 360deg; } }
+
+@utility bg-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(64px);
+  pointer-events: none;
+}
+
+@utility marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 32s linear infinite;
+}
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@utility bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* Grid futuristik bermasker: menghilang lembut ke tepi, bergeser pelan */
+@utility hud-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(oklch(1 0 0 / 0.07) 1px, transparent 1px), linear-gradient(90deg, oklch(1 0 0 / 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 40%, #000 25%, transparent 78%);
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 40%, #000 25%, transparent 78%);
+  animation: gridPan 24s linear infinite;
+}
+@keyframes gridPan {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 44px 44px, 44px 44px; }
+}
+
+/* Sudut bingkai ala HUD (dipasang pada wrapper `relative`) */
+@utility hud-corners {
+  position: relative;
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    pointer-events: none;
+    z-index: 3;
+    border: 2px solid oklch(from var(--gold) l c h / 0.9);
+    transition: transform 0.6s var(--ease-out), opacity 0.4s ease;
+  }
+  &::before { top: 12px; left: 12px; border-right: 0; border-bottom: 0; border-top-left-radius: 8px; }
+  &::after { right: 12px; bottom: 12px; border-left: 0; border-top: 0; border-bottom-right-radius: 8px; }
+  &:hover::before { transform: translate(-4px, -4px); }
+  &:hover::after { transform: translate(4px, 4px); }
+}
+
+@utility shadow-soft { box-shadow: var(--shadow-soft); }
+@utility shadow-lift { box-shadow: var(--shadow-lift); }
+
+/* Kartu interaktif: naik halus + cahaya emas yang mengikuti kursor
+   (JS mengisi --mx/--my). Hover hanya di perangkat yang benar-benar punya hover. */
+@utility card-hover {
+  position: relative;
+  transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out), border-color 0.45s var(--ease-out);
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 0%), oklch(from var(--gold) l c h / 0.16), transparent 62%);
+    opacity: 0;
+    transition: opacity 0.45s ease;
+  }
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-7px);
+      box-shadow: var(--shadow-lift), 0 0 30px -8px oklch(from var(--gold) l c h / 0.28);
+      border-color: oklch(from var(--gold) l c h / 0.5);
+    }
+    &:hover::after { opacity: 1; }
+  }
+}
+
+/* Tombol berkilau: kilatan melintas + sedikit "magnet" mengikuti kursor */
+@utility shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transform: translate(var(--mag-x, 0px), var(--mag-y, 0px));
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    transform: translateX(-130%) skewX(-18deg);
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.34), transparent);
+    transition: transform 0.85s var(--ease-out);
+  }
+  &:hover::after { transform: translateX(130%) skewX(-18deg); }
+}
+
+@utility section-pad {
+  padding-block: 4.5rem;
+  @media (min-width: 1024px) { padding-block: 6.25rem; }
+}
+
+@utility input-field {
+  margin-top: 0.375rem;
+  display: block;
+  width: 100%;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  background-color: var(--background);
+  padding: 0.75rem 1rem;
+  font-size: var(--text-sm);
+  color: var(--foreground);
+  outline: none;
+  transition: border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), background-color 0.3s ease, transform 0.3s var(--ease-out);
+  &::placeholder { color: var(--muted-foreground); }
+  &:hover { border-color: oklch(from var(--gold) l c h / 0.45); }
+  &:focus {
+    border-color: var(--gold);
+    background-color: var(--card);
+    box-shadow: 0 0 0 4px oklch(from var(--gold) l c h / 0.18), 0 10px 24px -14px oklch(from var(--gold) l c h / 0.5);
+  }
+}
+
+@utility glow { box-shadow: 0 0 24px -4px oklch(from var(--gold) l c h / 0.45); }
+@utility glow-hover {
+  transition: box-shadow 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+  &:hover { box-shadow: 0 0 32px -6px oklch(from var(--gold) l c h / 0.55); }
+}
+
+.float-card { animation: floatY 6s ease-in-out infinite; }
+.float-card:nth-of-type(2) { animation-delay: 0.8s; }
+
+/* Garis bawah gradien saat hover (link teks) */
+.link-underline {
+  background-image: linear-gradient(90deg, var(--color-gold), var(--color-cyan));
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  transition: background-size 0.4s var(--ease-out), color 0.25s ease;
+}
+.link-underline:hover { background-size: 100% 2px; }
+
+/* Kicker (pill kecil di atas judul) dengan titik berdenyut */
+.kicker-dot {
+  position: relative;
+  height: 0.375rem;
+  width: 0.375rem;
+  border-radius: 9999px;
+  background: var(--gold);
+}
+.kicker-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--gold);
+  animation: dotPing 2.2s var(--ease-out) infinite;
+}
+@keyframes dotPing {
+  0% { transform: scale(1); opacity: 0.7; }
+  80%, 100% { transform: scale(3.2); opacity: 0; }
+}
+
+/* Garis judul section: memanjang saat elemen terlihat */
+.title-bar {
+  display: block;
+  height: 3px;
+  width: 3.5rem;
+  border-radius: 999px;
+  background-image: var(--gradient-aurora);
+  background-size: 200% 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.9s var(--ease-out) 0.25s;
+}
+.is-visible .title-bar, .title-bar.is-visible { transform: scaleX(1); }
+/* ===================================================================
+   Guru & Staff — kartu profil versi 2:
+   - Ukuran kartu tetap seperti semula, sudut lebih membulat & lebih lega.
+   - Foto tampil 100% penuh (object-contain, tidak dipotong) & transparan,
+     tanpa kotak latar warna — hanya aura lembut yang muncul saat hover.
+   - Hover effect: kartu miring mengikuti kursor (tilt 3D) + cahaya
+     "spotlight" yang mengikuti posisi kursor, bar aksen emas di atas,
+     foto "melayang" dengan drop-shadow, badge jabatan berubah gradasi.
+   - TIDAK ada elemen yang berputar terus-menerus — semua efek hanya
+     aktif & bergerak halus saat kartu benar-benar di-hover/disentuh.
+   =================================================================== */
+.staff-card {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --spot-x: 50%;
+  --spot-y: 30%;
+  position: relative;
+  isolation: isolate;
+  transform: perspective(1000px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.45s ease;
+}
+.staff-card:hover {
+  transform: perspective(1000px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-10px) scale(1.02);
+  box-shadow: var(--shadow-lift), 0 0 40px -12px oklch(from var(--gold) l c h / 0.4);
+  border-color: oklch(from var(--gold) l c h / 0.5);
+}
+
+/* Cahaya lembut yang mengikuti posisi kursor di atas kartu (spotlight) */
+.staff-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: radial-gradient(360px circle at var(--spot-x) var(--spot-y), oklch(from var(--gold) l c h / 0.16), transparent 62%);
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+.staff-card:hover::before {
+  opacity: 1;
+}
+
+/* Bar aksen tipis di atas kartu: sedikit terlihat saat diam, penuh saat hover */
+.staff-card-accent {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 2;
+  height: 3px;
+  background-image: var(--gradient-gold);
+  transform: scaleX(0.22);
+  transform-origin: left center;
+  opacity: 0.5;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+  pointer-events: none;
+}
+.staff-card:hover .staff-card-accent {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+/* Area foto: kosong/transparan, tanpa latar warna permanen */
+.staff-photo {
+  background: transparent;
+}
+
+/* Aura lembut di belakang foto — hanya muncul saat kartu di-hover,
+   bukan latar tetap, sesuai permintaan "background kosong". */
+.staff-photo-aura {
+  position: absolute;
+  inset: 6%;
+  border-radius: 9999px;
+  background: radial-gradient(circle, oklch(from var(--gold) l c h / 0.22), transparent 72%);
+  opacity: 0;
+  transform: scale(0.82);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+.staff-card:hover .staff-photo-aura {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+/* Lencana Kepala Sekolah: anak langsung dari .staff-card (bukan di dalam
+   wrapper overflow-hidden), jadi otomatis ikut terangkat/membesar saat
+   kartu di-hover, tanpa pernah terpotong sudut membulat kartu. */
+.staff-card-lead-badge {
+  box-shadow: 0 0 0 4px var(--background), 0 8px 16px -6px oklch(from var(--gold) l c h / 0.55);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+}
+.staff-card:hover .staff-card-lead-badge {
+  transform: scale(1.18) rotate(-8deg);
+  box-shadow: 0 0 0 4px var(--background), 0 10px 22px -6px oklch(from var(--gold) l c h / 0.7);
+}
+
+/* Karena overflow-hidden dipindah ke wrapper konten (bukan lagi di .staff-card
+   itu sendiri untuk kartu Pimpinan), beri border-radius eksplisit pada efek
+   spotlight (::before) supaya bentuknya tetap mengikuti sudut membulat kartu. */
+.staff-card-lead::before {
+  border-radius: 1.75rem;
+}
+
+/* Kartu Kepala Sekolah dibedakan dari kartu pimpinan lain: border & garis
+   aksen emas selalu terlihat (tidak perlu hover), plus badge jabatan warna
+   emas — ukuran & posisi kartu tetap sama seperti yang lain. */
+.staff-card-principal {
+  border-color: oklch(from var(--gold) l c h / 0.55);
+  box-shadow: var(--shadow-soft), 0 0 0 1px oklch(from var(--gold) l c h / 0.12);
+}
+.staff-card-principal:hover {
+  border-color: oklch(from var(--gold) l c h / 0.75);
+}
+.staff-card-principal .staff-card-accent {
+  opacity: 1;
+  transform: scaleX(1);
+}
+.staff-badge-gold {
+  background-image: var(--gradient-gold);
+  color: var(--gold-foreground);
+  box-shadow: 0 6px 14px -7px oklch(from var(--gold) l c h / 0.6);
+}
+
+/* Foto tampil 100% (object-contain, tidak crop) + drop-shadow supaya
+   terasa "melayang" di atas kartu — cocok untuk foto transparan (PNG). */
+.staff-photo-img {
+  filter: drop-shadow(0 12px 20px oklch(0.22 0.045 260 / 0.18));
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s ease;
+}
+.staff-card:hover .staff-photo-img {
+  transform: scale(1.07) translateY(-5px);
+  filter: drop-shadow(0 20px 28px oklch(0.22 0.045 260 / 0.3));
+}
+
+/* Nama guru/staff: transisi warna halus saat kartu di-hover */
+.staff-name {
+  transition: color 0.35s ease;
+}
+.staff-card:hover .staff-name {
+  color: var(--primary);
+}
+
+/* Badge jabatan: bertukar jadi gradasi emas + sedikit terangkat saat hover */
+.staff-badge {
+  transition: background-color 0.35s ease, background-image 0.35s ease, color 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+.staff-card:hover .staff-badge {
+  background-image: var(--gradient-gold);
+  background-color: transparent;
+  color: var(--gold-foreground);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px -8px oklch(from var(--gold) l c h / 0.55);
+}
+
+/* ===== Filter kategori Guru & Staff (dropdown) ===== */
+.staff-filter-select-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  box-shadow: var(--shadow-soft);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.staff-filter-select-wrap:hover,
+.staff-filter-select-wrap:focus-within {
+  border-color: oklch(from var(--gold) l c h / 0.55);
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-2px);
+}
+.staff-filter-select-icon {
+  position: absolute;
+  left: 1.15rem;
+  color: var(--primary);
+  pointer-events: none;
+}
+.staff-filter-select-chevron {
+  position: absolute;
+  right: 1.15rem;
+  color: var(--muted-foreground);
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease;
+}
+.staff-filter-select-wrap:focus-within .staff-filter-select-chevron {
+  transform: rotate(180deg);
+  color: var(--primary);
+}
+.staff-filter-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0.85rem 2.75rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--foreground);
+  cursor: pointer;
+}
+/* Pilihan dropdown dirender oleh browser (tidak bisa di-style penuh via CSS),
+   tapi tetap diberi warna dasar yang senada supaya tidak pecah kontras. */
+.staff-filter-select option {
+  color: var(--foreground);
+  background-color: var(--card);
+}
+
+/* Kategori yang disembunyikan oleh filter */
+[data-staff-category].is-filtered-out {
+  display: none;
+}
+/* ===================================================================
+   Kompetensi Keahlian — kartu geser saat hover:
+   - Border/bg kartu (".major-card-frame") & area foto (".major-card-media")
+     diposisikan presisi via left/width (bukan translateX perkiraan),
+     dihitung dari lebar kolom grid yang sebenarnya (2 kolom, gap-8 =
+     2rem → lebar 1 kolom = calc(50% - 1rem)) — sehingga border benar2
+     melingkari ukuran foto, tidak lebih besar/kecil.
+   - Area yang memicu hover DIBATASI hanya pada ".major-card-hit", yaitu
+     lapisan tak terlihat yang persis seukuran foto saat idle, dan
+     membesar sendiri saat di-hover (teknik "self-growing hit box") —
+     jadi hover di luar foto TIDAK terhitung, dan begitu sudah ter-hover,
+     area membesar mengikuti sehingga tidak flicker saat kursor bergerak
+     ke arah teks yang baru muncul.
+   - Baseline (semua ukuran layar): frame menutupi seluruh kartu seperti
+     tampilan biasa (foto & teks selalu terlihat, tanpa animasi).
+   - Hanya aktif di layar >=1024px yang benar-benar mendukung hover
+     (mouse/trackpad) DAN saat pengguna tidak mengaktifkan "reduced
+     motion". Di luar itu (mobile, tablet sentuh, atau reduced motion),
+     kartu memakai layout normal tanpa animasi.
+   =================================================================== */
+.major-card {
+  position: relative;
+  isolation: isolate;
+}
+@media (min-width: 1024px) {
+  /* Kartu (dan otomatis foto di dalamnya, karena "lg:aspect-auto" membuat
+     foto mengikuti tinggi baris grid) dibuat sedikit lebih tinggi supaya
+     gambar jurusan tampil lebih besar & lebih terlihat jelas. */
+  .major-card {
+    min-height: 420px;
+  }
+}
+.major-card-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-card);
+  box-shadow: var(--shadow-soft);
+  pointer-events: none;
+}
+.major-card-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: transparent;
+}
+.major-card-media {
+  position: relative;
+  z-index: 1;
+}
+/* PERBAIKAN BUG "Telusuri Lebih Lanjut" tidak bisa diklik:
+   sebelumnya body (teks + tombol) z-index 1 berada DI BAWAH ".major-card-hit"
+   (z-index 2) yang saat hover membesar menutupi seluruh kartu, sehingga
+   semua klik jatuh ke lapisan transparan itu, bukan ke tombolnya.
+   Sekarang body diletakkan DI ATAS lapisan hit (z-index 3). Saat idle body
+   punya pointer-events:none (lihat blok desktop di bawah), jadi hover pada
+   area foto tetap ditangkap ".major-card-hit" seperti semula. */
+.major-card-body {
+  position: relative;
+  z-index: 3;
+}
+
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  /* ---- Lapisan foto & border: idle = di tengah, presisi seukuran 1 kolom grid ---- */
+  .major-card-frame,
+  .major-card-media {
+    top: 0;
+    bottom: 0;
+    right: auto;
+    left: calc(25% + 0.5rem);
+    width: calc(50% - 1rem);
+  }
+  /* Menutup (mouse keluar): border baru mulai bergerak menutup SETELAH
+     teks selesai memudar (delay = durasi fade-out teks di ".major-card-body"
+     di bawah), supaya urutannya "teks hilang dulu, baru border menutup". */
+  .major-card-frame {
+    transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.3s, width 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.3s, box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+  }
+  .major-card-media {
+    position: absolute;
+    transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.3s, width 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+  }
+
+  /* ---- Lapisan pemicu hover: sama persis seukuran foto saat idle,
+     lalu membesar sendiri begitu kartu "terbuka" (lihat selector state
+     di bawah). Lapisan ini berada DI BAWAH body (z-index 2 < 3), jadi
+     tombol/link di dalam body tetap bisa diklik. ---- */
+  .major-card-hit {
+    top: 0;
+    bottom: 0;
+    right: auto;
+    left: calc(25% + 0.5rem);
+    width: calc(50% - 1rem);
+    pointer-events: auto;
+    transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1), width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Menutup (mouse keluar): teks memudar (fade-out) LEBIH DULU tanpa
+     delay, baru border ikut menutup (lihat delay 0.3s pada ".major-card-frame"
+     dan ".major-card-media" di atas). Saat idle body tidak menangkap
+     pointer sama sekali (pointer-events:none), sehingga hover pada area
+     foto tetap jatuh ke ".major-card-hit". */
+  .major-card-body {
+    transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+    pointer-events: none;
+  }
+
+  /* Kartu dengan foto di kolom kiri (urutan normal): posisi asli foto = kolom 1,
+     teks = kolom 2, idle disembunyikan & digeser lebih jauh ke kanan. */
+  .major-card[data-dir='left'] .major-card-body {
+    grid-column: 2;
+    transform: translateX(56px);
+    opacity: 0;
+  }
+
+  /* Kartu dengan foto di kolom kanan (urutan dibalik): posisi asli foto = kolom 2,
+     teks = kolom 1, idle disembunyikan & digeser lebih jauh ke kiri. */
+  .major-card[data-dir='right'] .major-card-body {
+    grid-column: 1;
+    transform: translateX(-56px);
+    opacity: 0;
+  }
+
+  /* ---- State "terbuka" ----
+     Kartu terbuka bila SALAH SATU benar:
+       1. kursor ada di atas lapisan hit (area foto / area yang sudah membesar),
+       2. kursor ada di atas body (teks + tombol) — INI yang menjaga kartu
+          tetap terbuka saat kursor pindah ke tombol "Telusuri Lebih Lanjut"
+          (karena body sekarang berada di atas lapisan hit),
+       3. ada elemen di dalam body yang fokus lewat KEYBOARD (Tab), supaya
+          pengguna keyboard bisa melihat & menekan tombolnya.
+     Membuka (mouse masuk): border/frame bergerak DULUAN tanpa delay,
+     lalu teks baru mulai muncul dengan efek fade setelah border berjalan
+     (delay 0.3s), supaya urutannya "border muncul dulu, baru teks fade in". */
+  .major-card:has(.major-card-hit:hover, .major-card-body:hover, .major-card-body :focus-visible) .major-card-hit {
+    left: 0;
+    width: 100%;
+  }
+  .major-card:has(.major-card-hit:hover, .major-card-body:hover, .major-card-body :focus-visible) .major-card-frame {
+    left: 0;
+    width: 100%;
+    box-shadow: var(--shadow-lift);
+    transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1), width 0.7s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .major-card:has(.major-card-hit:hover, .major-card-body:hover, .major-card-body :focus-visible) .major-card-media {
+    transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1), width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .major-card[data-dir='left']:has(.major-card-hit:hover, .major-card-body:hover, .major-card-body :focus-visible) .major-card-media {
+    left: 0;
+  }
+  .major-card[data-dir='right']:has(.major-card-hit:hover, .major-card-body:hover, .major-card-body :focus-visible) .major-card-media {
+    left: calc(50% + 1rem);
+  }
+  .major-card:has(.major-card-hit:hover, .major-card-body:hover, .major-card-body :focus-visible) .major-card-body {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.45s ease 0.3s, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+  }
+}
+
+
+/* ===================================================================
+   MOTION SYSTEM
+   =================================================================== */
+
+/* ---------- Reveal saat scroll ----------
+   Memakai KEYFRAMES (bukan transition) supaya tidak menimpa transition
+   hover milik elemen itu sendiri (kartu, tombol, dll) — hover tetap mulus.
+   Delay per-item dikendalikan variabel --i / --rd (diisi otomatis oleh JS),
+   dan fill-mode `backwards` memastikan tidak ada transform yang tertinggal
+   setelah animasi selesai (aman untuk anak `position: fixed`, mis. modal). */
+.reveal:not(.is-visible), .reveal-left:not(.is-visible), .reveal-right:not(.is-visible), .reveal-scale:not(.is-visible),
+.stagger-group:not(.is-visible) .stagger-item {
+  opacity: 0;
+}
+.reveal.is-visible { animation: revealUp 0.9s var(--ease-out) var(--rd, 0ms) backwards; }
+.reveal-left.is-visible { animation: revealLeft 0.9s var(--ease-out) var(--rd, 0ms) backwards; }
+.reveal-right.is-visible { animation: revealRight 0.9s var(--ease-out) var(--rd, 0ms) backwards; }
+.reveal-scale.is-visible { animation: revealScale 0.95s var(--ease-out) var(--rd, 0ms) backwards; }
+.stagger-group.is-visible .stagger-item { animation: staggerIn 0.85s var(--ease-out) calc(var(--i, 0) * 80ms) backwards; }
+@keyframes revealUp { from { opacity: 0; transform: translateY(34px); } to { opacity: 1; transform: none; } }
+@keyframes revealLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: none; } }
+@keyframes revealRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: none; } }
+@keyframes revealScale { from { opacity: 0; transform: scale(0.92) translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes staggerIn { from { opacity: 0; transform: translateY(36px) scale(0.97); } to { opacity: 1; transform: none; } }
+
+.fade-in { animation: fadeInUp 0.55s var(--ease-out) both; animation-delay: var(--fd, 0ms); }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Animasi saat halaman selesai dimuat (above-the-fold) ----------
+   Memakai keyframes + fill-mode `backwards`: sebelum mulai elemen tersembunyi,
+   setelah selesai TIDAK menahan transform (aman untuk anak position: fixed). */
+.enter-item { opacity: 0; }
+.enter-d1 { --d: 0.05s; }
+.enter-d2 { --d: 0.15s; }
+.enter-d3 { --d: 0.25s; }
+.enter-d4 { --d: 0.35s; }
+.enter-d5 { --d: 0.45s; }
+.enter-d6 { --d: 0.55s; }
+.page-loaded .enter-item {
+  opacity: 1;
+  animation: enterUp 1s var(--ease-out) var(--d, 0s) backwards;
+}
+@keyframes enterUp {
+  from { opacity: 0; transform: translateY(26px); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+/* Slide hero non-aktif: tampil normal (sedang fade-out); animasi masuk
+   diputar ulang setiap slide menjadi aktif. */
+.page-loaded [data-hero-slide]:not(.is-active) .enter-item { animation: none; }
+
+.page-fade { opacity: 0; transform: translateY(10px); transition: opacity 0.55s ease, transform 0.6s var(--ease-out); }
+.page-loaded .page-fade { opacity: 1; transform: none; }
+
+/* Judul yang dipecah per kata (JS: [data-split]) — kata naik dari balik "masker" */
+.split-word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.14em; margin-bottom: -0.14em; }
+.split-inner { display: inline-block; will-change: transform; }
+html:not(.page-loaded) [data-split] .split-inner { transform: translateY(115%); }
+.page-loaded [data-split] .split-inner { animation: splitUp 1s var(--ease-out) calc(var(--d, 0.1s) + var(--w, 0) * 55ms) backwards; }
+@keyframes splitUp {
+  from { transform: translateY(115%) rotate(4deg); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.page-loaded [data-hero-slide]:not(.is-active) [data-split] .split-inner { animation: none; }
+
+/* Tanpa JavaScript: semua konten harus tetap terlihat */
+@media (scripting: none) {
+  .reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-group .stagger-item, .enter-item, .page-fade {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  html:not(.page-loaded) [data-split] .split-inner { transform: none; }
+}
+
+/* ---------- Transisi antar-halaman PUBLIK (tirai + teks nama halaman) ----------
+   Alur: klik tautan -> tirai naik menutup layar & nama halaman tujuan muncul
+   besar di tengah -> pindah halaman -> halaman baru dimulai tertutup dengan teks
+   yang sama (tanpa lompatan) -> teks keluar ke atas -> tirai terangkat.
+   Panel admin TIDAK memakai ini (lihat blok "Admin: navigasi normal" di bawah). */
+.pt-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  visibility: hidden;
+  pointer-events: none;
+}
+.pt-panel {
+  position: relative;
+  flex: 1 0 20%;
+  margin-inline: -0.5px;
+  background: linear-gradient(180deg, oklch(0.2 0.085 262), oklch(0.15 0.07 266));
+  transform: scaleY(0);
+  transform-origin: bottom;
+  will-change: transform;
+}
+.pt-panel:nth-child(even) { background: linear-gradient(180deg, oklch(0.23 0.095 258), oklch(0.17 0.075 264)); }
+.pt-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--gradient-gold);
+  opacity: 0.85;
+}
+
+/* Panggung teks di tengah layar */
+.pt-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--hero-foreground);
+  visibility: hidden;
+  pointer-events: none;
+}
+/* Cahaya lembut di belakang teks */
+.pt-stage::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(90vw, 60rem);
+  height: min(60vw, 26rem);
+  translate: -50% -50%;
+  border-radius: 9999px;
+  background:
+    radial-gradient(closest-side, oklch(from var(--gold) l c h / 0.16), transparent 70%),
+    radial-gradient(closest-side at 70% 60%, oklch(from var(--cyan) l c h / 0.12), transparent 75%);
+  filter: blur(18px);
+  opacity: 0;
+  z-index: -1;
+}
+
+.pt-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0;
+}
+.pt-eyebrow b { font-weight: 700; }
+.pt-eyebrow i {
+  display: block;
+  height: 1px;
+  width: clamp(1.5rem, 6vw, 3.5rem);
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.pt-eyebrow i:last-child { transform: scaleX(-1); }
+
+.pt-label {
+  max-width: min(92vw, 70rem);
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 10vw, 7rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  color: #fff;
+  text-shadow: 0 8px 50px oklch(0 0 0 / 0.35);
+  text-wrap: balance;
+}
+.pt-label[data-len='mid'] { font-size: clamp(2.3rem, 8.4vw, 6rem); }
+.pt-label[data-len='long'] { font-size: clamp(1.9rem, 6.4vw, 4.6rem); }
+/* Setiap kata = "masker"; setiap huruf naik dari balik masker */
+.pt-word { display: inline-block; overflow: hidden; white-space: nowrap; padding: 0.06em 0.02em 0.16em; margin: -0.06em -0.02em -0.16em; vertical-align: top; }
+.pt-char { display: inline-block; will-change: transform; }
+
+.pt-rule {
+  display: block;
+  height: 3px;
+  width: clamp(4rem, 14vw, 8rem);
+  border-radius: 9999px;
+  background-image: var(--gradient-gold);
+  box-shadow: 0 0 18px 1px oklch(from var(--gold) l c h / 0.55);
+  transform: scaleX(0);
+  opacity: 0;
+}
+.pt-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: oklch(1 0 0 / 0.55);
+  opacity: 0;
+}
+.pt-brand img { height: 1.5rem; width: 1.5rem; object-fit: contain; }
+
+/* ===== Keluar: tirai naik menutupi layar, nama halaman tujuan muncul ===== */
+.pt-curtain.is-closing { visibility: visible; pointer-events: all; }
+.pt-curtain.is-closing .pt-panel { animation: ptClose 0.44s var(--ease-in-out) calc(var(--i) * 34ms) both; }
+@keyframes ptClose { from { transform: scaleY(0); transform-origin: bottom; } to { transform: scaleY(1); transform-origin: bottom; } }
+
+.pt-curtain.is-closing ~ .pt-stage { visibility: visible; }
+.pt-curtain.is-closing ~ .pt-stage::before { animation: ptGlow 0.7s ease 0.2s both; }
+.pt-curtain.is-closing ~ .pt-stage .pt-eyebrow { animation: ptFadeUp 0.5s var(--ease-out) 0.16s both; }
+.pt-curtain.is-closing ~ .pt-stage .pt-char { animation: ptCharIn 0.6s var(--ease-out) calc(0.2s + var(--c) * var(--st, 24ms)) both; }
+.pt-curtain.is-closing ~ .pt-stage .pt-rule { animation: ptRuleIn 0.6s var(--ease-out) 0.5s both; }
+.pt-curtain.is-closing ~ .pt-stage .pt-brand { animation: ptFadeUp 0.5s var(--ease-out) 0.6s both; }
+
+@keyframes ptCharIn { from { transform: translateY(112%) rotate(5deg); } to { transform: none; } }
+@keyframes ptCharOut { from { transform: none; } to { transform: translateY(-112%) rotate(-4deg); } }
+@keyframes ptFadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes ptFadeOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes ptRuleIn { from { opacity: 0; transform: scaleX(0); } to { opacity: 1; transform: scaleX(1); } }
+@keyframes ptGlow { from { opacity: 0; scale: 0.85; } to { opacity: 1; scale: 1; } }
+
+/* ===== Masuk: halaman baru dimulai tertutup (teks sudah tampil), lalu teks keluar & tirai terangkat ===== */
+html.pt-enter .pt-curtain { visibility: visible; }
+html.pt-enter .pt-panel { transform: scaleY(1); transform-origin: top; }
+html.pt-enter .pt-stage { visibility: visible; }
+html.pt-enter .pt-stage::before { opacity: 1; }
+html.pt-enter .pt-eyebrow, html.pt-enter .pt-brand { opacity: 1; }
+html.pt-enter .pt-rule { opacity: 1; transform: scaleX(1); }
+
+.pt-curtain.is-opening .pt-panel { animation: ptOpen 0.64s var(--ease-in-out) calc(0.22s + var(--i) * 34ms) both; }
+@keyframes ptOpen { from { transform: scaleY(1); transform-origin: top; } to { transform: scaleY(0); transform-origin: top; } }
+.pt-curtain.is-opening ~ .pt-stage .pt-char { animation: ptCharOut 0.46s var(--ease-in-out) calc(var(--c) * 14ms) both; }
+.pt-curtain.is-opening ~ .pt-stage .pt-eyebrow,
+.pt-curtain.is-opening ~ .pt-stage .pt-brand,
+.pt-curtain.is-opening ~ .pt-stage .pt-rule { animation: ptFadeOut 0.3s ease both; }
+.pt-curtain.is-opening ~ .pt-stage::before { animation: ptFadeOut 0.5s ease 0.1s both; }
+
+/* Kunjungan pertama (intro): teks sedikit lebih dramatis */
+html.pt-intro .pt-stage .pt-char { animation: ptCharIn 0.9s var(--ease-out) calc(0.1s + var(--c) * 45ms) both; }
+html.pt-intro .pt-stage .pt-eyebrow { animation: ptFadeUp 0.7s var(--ease-out) 0.05s both; }
+html.pt-intro .pt-stage .pt-rule { animation: ptRuleIn 0.8s var(--ease-out) 0.6s both; }
+html.pt-intro .pt-stage .pt-brand { animation: ptFadeUp 0.7s var(--ease-out) 0.7s both; }
+/* ...tetapi saat tirai dibuka, animasi keluar menang */
+html.pt-intro .pt-curtain.is-opening ~ .pt-stage .pt-char { animation: ptCharOut 0.46s var(--ease-in-out) calc(var(--c) * 14ms) both; }
+html.pt-intro .pt-curtain.is-opening ~ .pt-stage .pt-eyebrow,
+html.pt-intro .pt-curtain.is-opening ~ .pt-stage .pt-brand,
+html.pt-intro .pt-curtain.is-opening ~ .pt-stage .pt-rule { animation: ptFadeOut 0.3s ease both; }
+
+/* Pengaman: kalau JS gagal, tirai tetap otomatis lepas */
+html.pt-enter .pt-curtain { animation: ptSafety 0.01s linear 4s forwards; }
+html.pt-enter .pt-stage { animation: ptSafety 0.01s linear 4s forwards; }
+@keyframes ptSafety { to { visibility: hidden; opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .pt-curtain, .pt-stage { display: none !important; }
+}
+
+/* ---------- Admin: navigasi normal ----------
+   Panel admin (body[data-transition="normal"]) tidak memakai tirai, fade, maupun
+   animasi masuk konten — halaman langsung tampil utuh seperti navigasi biasa,
+   sehingga perpindahan antar-menu terasa cepat & stabil. Animasi interaktif
+   (modal, popover, hover, dll) tidak diubah. */
+body[data-transition='normal'] .enter-item,
+body[data-transition='normal'] .reveal,
+body[data-transition='normal'] .reveal-left,
+body[data-transition='normal'] .reveal-right,
+body[data-transition='normal'] .reveal-scale,
+body[data-transition='normal'] .stagger-item,
+body[data-transition='normal'] .row-reveal {
+  opacity: 1 !important;
+  animation: none !important;
+}
+/* Sengaja hanya mematikan animasi-masuk (keyframes) + opacity awal, BUKAN transform/transition,
+   agar efek hover kartu/tombol di admin tetap berfungsi. */
+
+/* ---------- Bar progres pemuatan (dipakai saat submit form / panel admin) ---------- */
+.page-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  z-index: 9999;
+  background-image: var(--gradient-aurora);
+  box-shadow: 0 0 12px 1px oklch(from var(--gold) l c h / 0.6);
+  transition: width 0.4s var(--ease-out), opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+.page-progress.is-active { opacity: 1; }
+
+/* ---------- Navbar ---------- */
+[data-navbar] {
+  transition: transform 0.5s var(--ease-out);
+}
+[data-navbar].is-hidden { transform: translateY(calc(-100% - 1.25rem)); }
+.site-nav {
+  transition: height 0.4s var(--ease-out), box-shadow 0.4s ease, background-color 0.4s ease, border-color 0.4s ease;
+}
+[data-navbar][data-scrolled='true'] .site-nav {
+  height: 60px;
+  box-shadow: 0 18px 40px -24px oklch(0.19 0.05 260 / 0.5);
+  border-color: oklch(from var(--gold) l c h / 0.22);
+}
+.nav-scroll-progress {
+  position: absolute;
+  left: 1.25rem; right: 1.25rem; bottom: -1px;
+  height: 2px;
+  border-radius: 999px;
+  background-image: var(--gradient-aurora);
+  transform: scaleX(var(--scroll, 0));
+  transform-origin: left center;
+  pointer-events: none;
+}
+.nav-hover-pill {
+  position: absolute;
+  z-index: 0;
+  left: 0; top: 0;
+  width: 0; height: 0;
+  border-radius: 9999px;
+  background: oklch(from var(--accent) l c h / 0.85);
+  opacity: 0;
+  transition: transform 0.45s var(--ease-out), width 0.45s var(--ease-out), height 0.45s var(--ease-out), opacity 0.25s ease;
+  pointer-events: none;
+}
+.nav-hover-pill.is-on { opacity: 1; }
+.nav-track > * { position: relative; z-index: 1; }
+.nav-track > .nav-hover-pill { position: absolute; z-index: 0; }
+
+/* Dropdown menu desktop */
+.nav-dropdown {
+  transform-origin: top center;
+  scale: 0.96;
+  transition: opacity 0.28s var(--ease-out), translate 0.4s var(--ease-out), scale 0.4s var(--ease-out), visibility 0.28s;
+}
+.group\/nav:hover .nav-dropdown, .group\/nav:focus-within .nav-dropdown { scale: 1; }
+.nav-dropdown > div > a {
+  opacity: 0;
+  translate: 0 6px;
+  transition: opacity 0.3s ease, translate 0.4s var(--ease-out), background-color 0.25s ease, color 0.25s ease;
+}
+.group\/nav:hover .nav-dropdown > div > a,
+.group\/nav:focus-within .nav-dropdown > div > a {
+  opacity: 1;
+  translate: 0 0;
+}
+.nav-dropdown > div > a:nth-child(1) { transition-delay: 40ms, 40ms, 0s, 0s; }
+.nav-dropdown > div > a:nth-child(2) { transition-delay: 90ms, 90ms, 0s, 0s; }
+.nav-dropdown > div > a:nth-child(3) { transition-delay: 140ms, 140ms, 0s, 0s; }
+.nav-dropdown > div > a:nth-child(4) { transition-delay: 190ms, 190ms, 0s, 0s; }
+.nav-dropdown > div > a:nth-child(n + 5) { transition-delay: 230ms, 230ms, 0s, 0s; }
+
+/* Menu mobile */
+.nav-menu {
+  opacity: 0;
+  transform: translateY(-14px) scale(0.98);
+  transform-origin: top center;
+  transition: opacity 0.32s ease, transform 0.42s var(--ease-out);
+}
+.nav-menu.is-open { opacity: 1; transform: none; }
+.nav-menu > * {
+  opacity: 0;
+  translate: 0 10px;
+  transition: opacity 0.35s ease, translate 0.45s var(--ease-out);
+}
+.nav-menu.is-open > * { opacity: 1; translate: 0 0; transition-delay: calc(var(--i, 0) * 45ms + 60ms); }
+.nav-acc-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.42s var(--ease-out);
+}
+.nav-acc-panel > div { min-height: 0; overflow: hidden; }
+.nav-acc-panel.is-open { grid-template-rows: 1fr; }
+[data-nav-toggle] svg { transition: transform 0.4s var(--ease-out), opacity 0.25s ease; }
+[data-nav-toggle][aria-expanded='true'] svg { transform: rotate(90deg); }
+
+/* ---------- Tab dengan indikator geser ---------- */
+.seg { position: relative; isolation: isolate; }
+.seg-indicator {
+  position: absolute;
+  z-index: -1;
+  left: 0; top: 0;
+  border-radius: 9999px;
+  background-image: var(--gradient-navy);
+  box-shadow: 0 10px 22px -10px oklch(from var(--primary) l c h / 0.7);
+  transition: transform 0.5s var(--ease-out), width 0.5s var(--ease-out), height 0.5s var(--ease-out);
+  pointer-events: none;
+}
+.seg [data-tab-btn] { position: relative; z-index: 1; transition: color 0.3s ease; }
+
+/* Filter kategori */
+[data-filter-btn] {
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s var(--ease-out);
+}
+@media (hover: hover) { [data-filter-btn]:hover { transform: translateY(-2px); } }
+[data-filter-item].is-leaving { opacity: 0; transform: scale(0.95); transition: opacity 0.2s ease, transform 0.2s ease; }
+[data-filter-item].fade-in { animation-name: filterIn; }
+@keyframes filterIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Progres bar, spinner, tabel, dashboard ---------- */
+@keyframes rowReveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+.row-reveal { animation: rowReveal 0.6s var(--ease-out) both; }
+tbody tr { transition: background-color 0.25s ease; }
+@media (hover: hover) { tbody tr:hover { background-color: oklch(from var(--gold) l c h / 0.06); } }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.btn-spinner {
+  display: inline-block;
+  width: 1em; height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+  vertical-align: -0.125em;
+}
+
+@keyframes dashPulse {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(from var(--destructive) l c h / 0.35); }
+  50% { box-shadow: 0 0 0 6px oklch(from var(--destructive) l c h / 0); }
+}
+.dash-pulse { animation: dashPulse 2.2s ease-in-out infinite; }
+
+/* ---------- Modal, lightbox & dialog konfirmasi ---------- */
+@keyframes modalPopIn {
+  from { opacity: 0; transform: translateY(22px) scale(0.955); filter: blur(4px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+@keyframes modalPopOut {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translateY(12px) scale(0.97); }
+}
+@keyframes overlayFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes overlayFadeOut { from { opacity: 1; } to { opacity: 0; } }
+[data-modal], [data-lightbox], .confirm-overlay { animation: overlayFadeIn 0.3s ease both; }
+[data-modal] { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+[data-modal] [data-modal-panel], [data-lightbox] figure, .confirm-panel { animation: modalPopIn 0.45s var(--ease-out) backwards; }
+[data-modal].is-closing, [data-lightbox].is-closing, .confirm-overlay.is-closing { animation: overlayFadeOut 0.22s ease both; }
+[data-modal].is-closing [data-modal-panel], [data-lightbox].is-closing figure, .confirm-overlay.is-closing .confirm-panel { animation: modalPopOut 0.22s cubic-bezier(0.4, 0, 1, 1) both; }
+[data-lightbox] { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+[data-lightbox-img] { transition: opacity 0.4s ease, transform 0.5s var(--ease-out); }
+[data-lightbox-img].is-loading { opacity: 0; transform: scale(0.97); }
+
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: oklch(0.14 0.05 262 / 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.confirm-panel {
+  position: relative;
+  width: 100%;
+  max-width: 24rem;
+  overflow: hidden;
+  border-radius: 1.6rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 1.75rem;
+  text-align: center;
+  box-shadow: var(--shadow-lift);
+}
+.confirm-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--destructive), var(--gold));
+}
+.confirm-icon {
+  margin: 0 auto;
+  display: flex;
+  height: 3.5rem;
+  width: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: oklch(from var(--destructive) l c h / 0.12);
+  color: var(--destructive);
+  animation: introPop 0.6s var(--ease-spring) 0.1s backwards;
+}
+.confirm-title { margin-top: 1rem; font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--foreground); }
+.confirm-text { margin-top: 0.4rem; font-size: 0.875rem; line-height: 1.6; color: var(--muted-foreground); }
+.confirm-actions { margin-top: 1.5rem; display: flex; gap: 0.75rem; }
+.confirm-actions button {
+  flex: 1;
+  border-radius: 9999px;
+  padding: 0.7rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background-color 0.25s ease, box-shadow 0.3s ease, translate 0.3s var(--ease-out);
+}
+.confirm-actions button:hover { translate: 0 -2px; }
+.confirm-cancel { background: var(--secondary); color: var(--secondary-foreground); }
+.confirm-ok { background: var(--destructive); color: var(--destructive-foreground); box-shadow: 0 10px 24px -12px var(--destructive); }
+
+/* ---------- Toast / alert flash ---------- */
+[data-alert] {
+  overflow: hidden;
+  animation: alertIn 0.65s var(--ease-spring) backwards;
+}
+@keyframes alertIn {
+  from { opacity: 0; transform: translateY(-24px) scale(0.92); }
+  to { opacity: 1; transform: none; }
+}
+[data-alert]::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  height: 3px;
+  width: 100%;
+  background: var(--gradient-gold);
+  transform-origin: left center;
+  animation: alertTimer 5s linear forwards;
+}
+@keyframes alertTimer { to { transform: scaleX(0); } }
+[data-alert].is-out { animation: alertOut 0.45s var(--ease-out) forwards; }
+@keyframes alertOut { to { opacity: 0; transform: translateY(-18px) scale(0.94); } }
+
+/* ---------- Sidebar admin & overlay ---------- */
+[data-admin-sidebar] { transition: transform 0.5s var(--ease-out); }
+[data-admin-sidebar-overlay] { transition: opacity 0.35s ease; }
+[data-admin-sidebar-overlay].is-fading { opacity: 0; }
+.sidebar-link {
+  position: relative;
+  transition: background-color 0.25s ease, color 0.25s ease, padding-left 0.3s var(--ease-out);
+}
+.sidebar-link:hover { padding-left: 1.3rem; }
+.sidebar-link::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  height: 0;
+  width: 3px;
+  border-radius: 999px;
+  background-image: var(--gradient-gold);
+  transform: translateY(-50%);
+  transition: height 0.3s var(--ease-out);
+}
+.sidebar-link.is-active::before, .sidebar-link:hover::before { height: 62%; }
+.sidebar-link.is-active { box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.08); }
+.popover-anim { transform-origin: top right; }
+.popover-anim.is-open { animation: popIn 0.32s var(--ease-out) both; }
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(-8px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+[data-strength-bar] { transition: background-color 0.35s ease; }
+
+/* ---------- Elemen dekoratif ---------- */
+@keyframes kenBurns {
+  from { transform: scale(1.06); }
+  to { transform: scale(1.17); }
+}
+.ken-burns { animation: kenBurns 9s var(--ease-out) both; }
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+.float-y { animation: floatY 5s ease-in-out infinite; }
+
+.cursor-glow {
+  position: fixed;
+  left: 0; top: 0;
+  z-index: 1;
+  width: 520px; height: 520px;
+  margin: -260px 0 0 -260px;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: radial-gradient(circle, oklch(from var(--gold) l c h / 0.10), oklch(from var(--cyan) l c h / 0.05) 45%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  will-change: transform;
+}
+.cursor-glow.is-on { opacity: 1; }
+
+canvas[data-particles] { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+/* Efek riak pada tombol utama */
+.ripple {
+  position: absolute;
+  z-index: 2;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: oklch(1 0 0 / 0.4);
+  transform: scale(0);
+  animation: rippleOut 0.7s var(--ease-out) forwards;
+}
+@keyframes rippleOut { to { transform: scale(1); opacity: 0; } }
+
+@keyframes chipPulseRing {
+  0% { box-shadow: 0 0 0 0 oklch(from var(--teal) l c h / 0.45); }
+  70% { box-shadow: 0 0 0 12px oklch(from var(--teal) l c h / 0); }
+  100% { box-shadow: 0 0 0 0 oklch(from var(--teal) l c h / 0); }
+}
+.chip-pulse { animation: chipPulseRing 2.4s var(--ease-out) infinite; }
+
+/* ---------- Tombol kembali ke atas (dengan cincin progres scroll) ---------- */
+.scroll-top-btn {
+  position: fixed;
+  right: 1.1rem;
+  bottom: 1.1rem;
+  z-index: 45;
+  display: flex;
+  height: 3.25rem;
+  width: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-image: var(--gradient-navy);
+  color: var(--hero-foreground);
+  box-shadow: var(--shadow-lift);
+  opacity: 0;
+  transform: translateY(18px) scale(0.8);
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease-out), transform 0.5s var(--ease-spring), box-shadow 0.3s ease;
+}
+@media (min-width: 640px) { .scroll-top-btn { right: 1.75rem; bottom: 1.75rem; } }
+.scroll-top-btn.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+.scroll-top-btn:hover { box-shadow: var(--shadow-lift), 0 0 26px -4px oklch(from var(--gold) l c h / 0.6); }
+.scroll-top-btn .ring {
+  position: absolute; inset: 0; transform: rotate(-90deg);
+  /* Nama kelas "ring" bentrok dengan utilitas Tailwind .ring (garis 1px berwarna teks) yang
+     membuat kotak putih di sekeliling SVG. Matikan di sini supaya hanya cincin lingkaran yang tampil. */
+  box-shadow: none; --tw-ring-shadow: 0 0 #0000;
+}
+.scroll-top-btn .ring circle { fill: none; stroke-width: 2.5; }
+.scroll-top-btn .ring .track { stroke: oklch(1 0 0 / 0.14); }
+.scroll-top-btn .ring .bar { stroke: var(--gold); stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: calc(100 - var(--scroll, 0) * 100); }
+.scroll-top-btn .arrow { transition: transform 0.35s var(--ease-out); }
+.scroll-top-btn:hover .arrow { transform: translateY(-3px); }
+
+/* ---------- Progres bacaan artikel ---------- */
+.read-progress-track { position: sticky; top: 0; z-index: 30; height: 3px; width: 100%; background-color: oklch(from var(--foreground) l c h / 0.07); }
+.read-progress-bar { height: 100%; width: 100%; transform: scaleX(0); transform-origin: left center; background-image: var(--gradient-aurora); box-shadow: 0 0 8px oklch(from var(--gold) l c h / 0.5); }
+
+/* ---------- Kartu tilt + spotlight generik ---------- */
+.tilt-glow {
+  --tg-x: 50%; --tg-y: 50%; --tg-rx: 0deg; --tg-ry: 0deg;
+  position: relative;
+  isolation: isolate;
+  transform: perspective(900px) rotateX(var(--tg-rx)) rotateY(var(--tg-ry));
+  transition: transform 0.4s var(--ease-out), box-shadow 0.45s var(--ease-out), border-color 0.45s ease;
+}
+.tilt-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: radial-gradient(300px circle at var(--tg-x) var(--tg-y), oklch(from var(--gold) l c h / 0.15), transparent 65%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+@media (hover: hover) {
+  .tilt-glow:hover { box-shadow: var(--shadow-lift); border-color: oklch(from var(--gold) l c h / 0.45); }
+  .tilt-glow:hover::before { opacity: 1; }
+}
+.tilt-glow > * { position: relative; z-index: 1; }
+
+[data-filter-empty] { display: none; }
+[data-filter-empty].is-visible { display: flex; animation: fadeInUp 0.5s var(--ease-out) both; }
+
+.share-btn { transition: transform 0.35s var(--ease-out), box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease; }
+@media (hover: hover) { .share-btn:hover { transform: translateY(-3px); } }
+
+@media (hover: none), (pointer: coarse) {
+  .tilt-glow { transform: none !important; }
+  .cursor-glow { display: none; }
+}
+
+/* ---------- Hormati preferensi "kurangi gerakan" ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-group .stagger-item, .enter-item, .page-fade {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  html:not(.page-loaded) [data-split] .split-inner { transform: none; }
+  .staff-card, .tilt-glow { transform: none !important; }
+  .cursor-glow, canvas[data-particles] { display: none !important; }
+}
+
+/* ---------- Dekorasi hero & footer ---------- */
+.hero-scan {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 140px;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, oklch(from var(--cyan) l c h / 0.09) 50%, transparent);
+  animation: scanDown 9s linear infinite;
+  will-change: transform;
+}
+@keyframes scanDown {
+  from { transform: translateY(-160px); }
+  to { transform: translateY(700px); }
+}
+.footer-watermark {
+  position: absolute;
+  left: 50%;
+  bottom: -0.16em;
+  translate: -50% 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(4rem, 15vw, 13rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px oklch(1 0 0 / 0.08);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Dipakai oleh beberapa gaya inline halaman (mis. bingkai .jp-phone) */
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
